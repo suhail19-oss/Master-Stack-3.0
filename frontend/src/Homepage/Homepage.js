@@ -6,9 +6,6 @@ import votingImage from './image.jpg';  // Adjust the path for your local image
 
 
 const Homepage = () => {
-
-
-  
   return (
     <Box
       sx={{
