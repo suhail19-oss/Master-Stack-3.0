@@ -1,27 +1,26 @@
-import { Box, Button, Typography } from '@mui/material';  // Add missing imports
-import { Link } from 'react-router-dom';  // Import Link from react-router-dom
-import votingImage from './image.jpg';  // Adjust the path for your local image
-
-
-
+import { Box, Button, Typography } from '@mui/material'; 
+import { Link } from 'react-router-dom';
+import votingImage from './image.jpg';
 
 const Homepage = () => {
   return (
     <Box
       sx={{
         display: 'flex',
-        flexDirection: 'row',  // Horizontal layout
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
+        width: '100vw',
         background: 'linear-gradient(135deg, #E0F7FA 30%, #B2EBF2)',
-        padding: '0 20px',
+        padding: '0',
+        margin: '0',
+        overflow: 'hidden',
       }}
     >
-      {/* Image Section on the Left */}
       <Box 
         component="img"
-        src={votingImage}  // Use the imported image
+        src={votingImage}
         alt="Voting Illustration"
         sx={{ 
           width: '400px', 
@@ -31,9 +30,12 @@ const Homepage = () => {
         }}
       />
 
-      {/* Content Section on the Right */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {/* Main Heading */}
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center',
+        marginTop: '-40px',
+      }}>
         <Typography 
           variant="h2" 
           gutterBottom 
@@ -43,10 +45,9 @@ const Homepage = () => {
             textShadow: '1px 1px 4px rgba(0, 0, 0, 0.2)' 
           }}
         >
-          Welcome to Block-Vote
+          Empowering Your Voice
         </Typography>
 
-        {/* Subheading */}
         <Typography 
           variant="h5" 
           gutterBottom 
@@ -58,7 +59,6 @@ const Homepage = () => {
           Let your voice be heard! Choose your option below.
         </Typography>
 
-        {/* Button Group */}
         <Box sx={{ display: 'flex', gap: '20px' }}>
           <Link to="/user-signin">
             <Button 
@@ -72,7 +72,7 @@ const Homepage = () => {
                 },
               }}
             >
-              Sign In as User
+              Sign Up as User
             </Button>
           </Link>
 

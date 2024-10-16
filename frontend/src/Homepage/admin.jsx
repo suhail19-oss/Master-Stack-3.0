@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
-const UserLogin = () => {
+const AdminSignin = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -10,29 +10,36 @@ const UserLogin = () => {
     <Box
       sx={{
         minHeight: '100vh',
+        width: '100vw',
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#001E3C',
-        color: '#fff',
         padding: '20px',
       }}
     >
-      <Typography variant="h3" gutterBottom>
-        User Login
-      </Typography>
       <Box
         component="form"
         onSubmit={handleSubmit}
         sx={{
           width: '90%',
           maxWidth: '400px',
+          padding: '40px',
+          backgroundColor: '#fff',
+          borderRadius: '10px',
+          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
           display: 'flex',
           flexDirection: 'column',
-          gap: 2,
+          gap: 3,
+          alignItems: 'center',
+          position: 'relative',
+          top: '-30px',
         }}
       >
+        <Typography variant="h3" gutterBottom sx={{ color: '#000', fontWeight: 'bold' }}>
+          Admin Sign In
+        </Typography>
+
         <TextField
           label="Email"
           variant="outlined"
@@ -49,12 +56,21 @@ const UserLogin = () => {
           type="password"
           sx={{ backgroundColor: '#fff' }}
         />
-        <Button variant="contained" color="primary" type="submit">
-          Login
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          sx={{
+            padding: '10px',
+            fontWeight: 'bold',
+            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+          }}
+        >
+          Sign In
         </Button>
       </Box>
     </Box>
   );
 };
 
-export default UserLogin;
+export default AdminSignin;
