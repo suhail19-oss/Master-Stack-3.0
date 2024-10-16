@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #e0e0e0;
+  overflow: hidden;
+}
+
+#root {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.MuiDrawer-paper {
+  padding-top: 64px;
+}
