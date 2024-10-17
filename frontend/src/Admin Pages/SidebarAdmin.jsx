@@ -7,7 +7,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InfoIcon from '@mui/icons-material/Info';
 
-const Sidebar = () => {
+const SidebarAdmin = () => {
   const navItems = [
     { text: 'Candidate Details', icon: <InfoIcon />, path: '/candidate-details' },
     { text: 'Add Candidate', icon: <AddIcon />, path: '/add-candidate' },
@@ -77,4 +77,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SidebarAdmin;

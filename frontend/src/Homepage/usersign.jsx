@@ -1,17 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
 const UserSignin = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    password: '',
+  });
+
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic here
+
+    const { name, phone, email, password } = formData;
+    if (!name || !phone || !email || !password) {
+      setError('All fields are required');
+      return;
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+      setError('Phone number must be exactly 10 digits');
+      return;
+    }
+
+    
+    navigate('/Sidebar');
   };
 
   return (
     <Box
       sx={{
         minHeight: '100vh',
-        width: '100vw', // Full width
+        width: '100vw',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -38,40 +68,58 @@ const UserSignin = () => {
         <Typography variant="h3" gutterBottom sx={{ color: '#000', fontWeight: 'bold' }}>
           User Sign Up
         </Typography>
-        
+
+        {error && (
+          <Typography color="error" variant="body2">
+            {error}
+          </Typography>
+        )}
+
         <TextField
           label="Name"
+          name="name"
           variant="outlined"
           required
           fullWidth
+          value={formData.name}
+          onChange={handleChange}
           sx={{ backgroundColor: '#fff' }}
         />
         <TextField
           label="Phone Number"
+          name="phone"
           variant="outlined"
           required
           fullWidth
           type="tel"
+          value={formData.phone}
+          onChange={handleChange}
           inputProps={{
-            pattern: '[0-9]{10}', // Ensures 10-digit numbers
+            pattern: '[0-9]{10}',
             title: 'Please enter a valid 10-digit phone number',
           }}
           sx={{ backgroundColor: '#fff' }}
         />
         <TextField
           label="Email"
+          name="email"
           variant="outlined"
           required
           fullWidth
           type="email"
+          value={formData.email}
+          onChange={handleChange}
           sx={{ backgroundColor: '#fff' }}
         />
         <TextField
           label="Password"
+          name="password"
           variant="outlined"
           required
           fullWidth
           type="password"
+          value={formData.password}
+          onChange={handleChange}
           sx={{ backgroundColor: '#fff' }}
         />
         <Button

@@ -6,6 +6,8 @@ import {
   Typography,
   Card,
   CardContent,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 
 const AddCandidate = () => {
@@ -15,6 +17,9 @@ const AddCandidate = () => {
     age: '',
     qualification: '',
   });
+  
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,16 +29,40 @@ const AddCandidate = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    
+    
+    setSnackbarMessage('Candidate added successfully!');
+    setOpenSnackbar(true);
+    
+    
+    setFormData({
+      name: '',
+      party: '',
+      age: '',
+      qualification: '',
+    });
+  };
+
+  const handleClear = () => {
+    setFormData({
+      name: '',
+      party: '',
+      age: '',
+      qualification: '',
+    });
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   return (
     <Card
       variant="outlined"
       sx={{
-        maxWidth: 400,
-        margin: '100px auto',
-        padding: '20px',
-        
+        width: 400,
+        margin: '130px auto', 
+        boxShadow: 3,
       }}
     >
       <CardContent>
@@ -41,7 +70,7 @@ const AddCandidate = () => {
           Add Candidate
         </Typography>
         <form onSubmit={handleSubmit}>
-          <Box display="flex" flexDirection="column" gap={2}>
+          <Box display="flex" flexDirection="column" gap={2} sx={{ padding: 2, marginTop: 0 }}>
             <TextField
               label="Name"
               name="name"
@@ -75,12 +104,22 @@ const AddCandidate = () => {
               onChange={handleChange}
               required
             />
-            <Button variant="contained" color="primary" type="submit">
-              Add Candidate
-            </Button>
+            <Box display="flex" justifyContent="space-between">
+              <Button variant="contained" color="primary" type="submit" sx={{ marginTop: 2 }}>
+                Add Candidate
+              </Button>
+              <Button variant="outlined" color="primary" onClick={handleClear} sx={{ marginTop: 2 }}>
+                Clear
+              </Button>
+            </Box>
           </Box>
         </form>
       </CardContent>
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Card>
   );
 };

@@ -9,7 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Sidebar = () => {
   const navItems = [
-    { text: 'User Manual', icon: <InfoIcon />, path: 'user-manual' },
+    { text: 'User Manual', icon: <InfoIcon />, path: '/user-manual' },
     { text: 'Voter Registration', icon: <CheckIcon />, path: '/voter-registration' },
     { text: 'Voting Area', icon: <BallotIcon />, path: '/voting-area' },
     { text: 'Results', icon: <BarChartIcon />, path: '/results' },
