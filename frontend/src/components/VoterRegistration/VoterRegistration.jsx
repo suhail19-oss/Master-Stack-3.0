@@ -43,7 +43,7 @@ const VoterRegistration = () => {
           boxShadow: 6,
           borderRadius: '12px',
           backgroundColor: '#ffffff',
-          marginTop: '20px',
+          margin: '100px 60px',
         }}
       >
         <Typography variant="h4" align="center" gutterBottom color="primary">

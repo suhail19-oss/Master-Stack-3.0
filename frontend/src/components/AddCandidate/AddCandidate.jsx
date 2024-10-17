@@ -59,7 +59,7 @@ const AddCandidate = () => {
       variant="outlined"
       sx={{
         width: 400,
-        margin: "130px auto",
+        margin: "100px 150px",
         boxShadow: 3,
       }}
     >
@@ -77,7 +77,7 @@ const AddCandidate = () => {
             display="flex"
             flexDirection="column"
             gap={2}
-            sx={{ padding: 2, marginTop: 0 }}
+            sx={{ padding: 2, marginTop: 1 }}
           >
             <TextField
               label="Name"
