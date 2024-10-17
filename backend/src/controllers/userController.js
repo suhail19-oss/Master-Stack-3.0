@@ -1,5 +1,6 @@
 import userModel from "../model/userModel.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
  
@@ -8,7 +9,7 @@ export const userLogin = async (req, res) => {
 
     const user = await userModel.findOne({ mobileNumber });
     if (!user) {
-      return res.status(400).json({ message: 'Invalid mobile number or password' });
+      return res.status(400).json({ message: 'Invalid 1 mobile number or password' });
     }
   
     // const isMatch = await bcrypt.compare(password, user.password);
