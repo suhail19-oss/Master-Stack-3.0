@@ -1,30 +1,40 @@
-import { Typography, Card, CardContent, Grid } from '@mui/material';
+import { Typography, Card, CardContent, Grid, Box } from '@mui/material';
 
 const Results = () => {
   const votingResults = [
     { option: 'Option 1', votes: 120 },
-    { option: 'Option 2', votes: 75 },
-    { option: 'Option 3', votes: 45 },
   ];
 
   return (
-    <div style={{ padding: '20px' }}>
-      <Typography variant="h4" gutterBottom>
-        Voting Results
-      </Typography>
-      <Grid container spacing={2}>
-        {votingResults.map((result, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6">{result.option}</Typography>
-                <Typography variant="body1">{result.votes} Votes</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </div>
+    <Box
+      sx={{
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center', 
+        alignItems: 'flex-start',
+        backgroundColor: 'transparent',
+        padding:"100px 150px",
+      }}
+    >
+      <Card
+        sx={{
+          width: '400px',
+          textAlign: 'center',
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <CardContent>
+          <Typography variant="h3" gutterBottom>
+            Voting Results
+          </Typography>
+          {votingResults.map((result, index) => (
+            <Typography key={index} variant="h5">
+              {result.option}: {result.votes} Votes
+            </Typography>
+          ))}
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 

@@ -37,7 +37,7 @@ const UserManual = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
-        marginTop: "50px",
+        marginTop: "100px",
       }}
     >
       <Box
