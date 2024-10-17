@@ -2,7 +2,7 @@ import userModel from "../model/userModel.js";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 dotenv.config();
-
+ 
 export const userLogin = async (req, res) => {
     const { mobileNumber, password } = req.body;
 

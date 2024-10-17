@@ -10,9 +10,6 @@ app.use(cors());
 connectDB();     
 app.use(express.json());
 
-app.get("/test", (req, res) => {
-  res.send("Helo from server");
-});
 
 app.use("/api", userRouter);
 
