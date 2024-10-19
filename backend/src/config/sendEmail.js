@@ -1,5 +1,5 @@
-const nodemailer = require("nodemailer");
-const dotenv = require("dotenv");
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
 dotenv.config();
 
 const { AUTH_EMAIL, AUTH_PASS } = process.env;
@@ -24,7 +24,7 @@ transporter.verify((error, success) => {
   }
 });
 
-const sendEmail = async (mailOptions) => {
+export const sendEmail = async (mailOptions) => {
   try {
     await transporter.sendMail(mailOptions);
     return;
@@ -33,4 +33,4 @@ const sendEmail = async (mailOptions) => {
   }
 };
 
-module.exports = sendEmail;
+

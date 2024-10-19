@@ -1,27 +1,35 @@
-import Person from "../model/personModel"
-import Candidate from "../model/candidateModel"
-import Voter from "../model/voterModel"
-import { generateToken } from "../config/generateToken"
-import { encrypt, comparePassword } from "../config/password"
-import { verifyOTP, deleteOTP } from "./otpController"
-import { sendVerificationOTPEmail } from "./emailController"
+import Person from "../model/personModel.js"
+import Candidate from "../model/candidateModel.js"
+import Voter from "../model/voterModel.js"
+import { generateToken } from "../config/generateToken.js"
+import { encrypt, comparePassword } from "../config/password.js"
+import { verifyOTP, deleteOTP } from "./otpController.js"
+import { sendVerificationOTPEmail } from "./emailController.js"
 import WalletConnectProvider from "@walletconnect/web3-provider"
 import { create } from "ipfs-http-client"
 import { ethers } from "ethers"
 
 const ipfs = create({ url: "https://ipfs.infura.io:5001/api/v0" })
 
-const storeUserData = async (data) => {
-    const { userId, sensitiveData } = req.body
+const storeUserData = async (userId, sensitiveData) => {
     const cid = await storeSensitiveDataInIPFS(sensitiveData)
 
     const user = await Person.findById(userId)
-    if (!user) return res.status(404).json({ message: "User not found" })
 
-    user.voterTransactionForYear.push(cid)
+    if (!user) console.error("User not found")
+
     await user.save()
 
-    res.json({ message: "Data stored in IPFS", ipfsHash: cid })
+    console.log("User data stored in IPFS with CID:", cid)
+}
+
+const storeSensitiveDataInIPFS = async (data) => {
+    try {
+        const { cid } = await ipfs.add(JSON.stringify(data))
+        return cid.toString()
+    } catch (error) {
+        console.error("Error storing data in IPFS:", error.message)
+    }
 }
 
 export const login = async (req, res) => {
@@ -56,12 +64,30 @@ export const login = async (req, res) => {
 
 export const registerUsers = async (req, res) => {
     try {
-        const { name, phone, aadhar, age } = req.body
-        const user = new Person({ name, phone, aadhar, age })
+        const { name, phone, aadhar, email, age } = req.body
+
+        // Check for missing fields
+        if (!name || !phone || !aadhar || !age) {
+            return res.status(400).json({ message: "Missing required fields" })
+        }
+
+        // Create a new Person instance
+        const user = new Person({
+            name: name,
+            phone: phone,
+            aadhar: aadhar,
+            email: email, // Include email if provided
+            age: age,
+        })
+
+        // Save user to database
         await user.save()
         res.status(201).json(user)
     } catch (error) {
-        res.status(500).json({ message: "register user controller error" })
+        console.error("Error registering user:", error.message) // Log the specific error message
+        res.status(500).json({
+            message: `Register user controller error: ${error.message}`,
+        }) // Send detailed error to response
     }
 }
 
@@ -120,15 +146,20 @@ export const validateUser = async (req, res) => {
     }
 }
 
-const addCandidate = async (req, res) => {
+export const addCandidate = async (req, res) => {
     try {
         const { partyName, motto, image, personId } = req.body
+        // const user = await Candidate.find({ person: personId })
+        // if(user){
+        //     return res.status(400).json({ message: "User already registered as a candidate" })
+        // }
         const candidate = new Candidate({
             partyName,
             motto,
             image,
             person: personId,
         })
+
         storeUserData(personId, req.body?._id)
         await candidate.save()
         res.status(201).json(candidate)
@@ -137,7 +168,7 @@ const addCandidate = async (req, res) => {
     }
 }
 
-const removeCandidate = async (req, res) => {
+export const removeCandidate = async (req, res) => {
     try {
         const { id } = req.params
         await Candidate.findByIdAndDelete(id)
@@ -147,7 +178,7 @@ const removeCandidate = async (req, res) => {
     }
 }
 
-const vote = async (req, res) => {
+export const vote = async (req, res) => {
     try {
         const { voterId, candidateId } = req.body
 
@@ -183,20 +214,4 @@ const vote = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "vote controller error" })
     }
-}
-
-const storeSensitiveDataInIPFS = async (data) => {
-    const { cid } = await ipfs.add(JSON.stringify(data))
-    return cid.toString()
-}
-
-module.exports = {
-    login,
-    registerUsers,
-    register,
-    validateUser,
-    addCandidate,
-    removeCandidate,
-    vote,
-    storeUserData,
 }

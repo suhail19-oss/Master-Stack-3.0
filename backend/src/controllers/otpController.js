@@ -1,11 +1,11 @@
-const generateOTP = require("../config/generateOTP");
-const OTP = require("../model/OTPModel");
-const sendEmail = require("../config/sendEmail");
-const { encrypt, comparePassword } = require("../config/password");
+import {generateOTP} from "../config/generateOTP.js";
+import OTP from "../model/OTPModel.js";
+import {sendEmail} from "../config/sendEmail.js";
+import { encrypt, comparePassword } from "../config/password.js";
 
 const { AUTH_EMAIL } = process.env;
 
-const verifyOTP = async ({ email, otp }) => {
+export const verifyOTP = async ({ email, otp }) => {
   try {
     if (!(email && otp)) {
       throw Error("Provide the values of email and otp");
@@ -34,7 +34,7 @@ const verifyOTP = async ({ email, otp }) => {
   }
 };
 
-const sendOTP = async ({ email, subject, message, duration = 1 }) => {
+export const sendOTP = async ({ email, subject, message, duration = 1 }) => {
   try {
     if (!(email && subject && message)) {
       throw Error("Provide valid values");
@@ -69,7 +69,7 @@ const sendOTP = async ({ email, subject, message, duration = 1 }) => {
   }
 };
 
-const deleteOTP = async (email) => {
+export const deleteOTP = async (email) => {
   try {
     await OTP.deleteOne({ email });
   } catch (error) {
@@ -77,4 +77,4 @@ const deleteOTP = async (email) => {
   }
 };
 
-module.exports = { sendOTP, verifyOTP, deleteOTP };
+

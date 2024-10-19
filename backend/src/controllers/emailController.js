@@ -1,8 +1,8 @@
-const Person = require("../model/personModel")
-const { sendOTP, verifyOTP, deleteOTP } = require("./otpController")
-const { generateToken } = require("../config/generateToken")
+import Person from "../model/personModel.js"
+import { sendOTP, verifyOTP, deleteOTP } from "./otpController.js"
+import { generateToken } from "../config/generateToken.js"
 
-const verifyUserEmailController = async (req, res) => {
+export const verifyUserEmailController = async (req, res) => {
     try {
         const { email, otp } = req.body
         if (!(email && otp)) throw Error("Empty otp details not allowed")
@@ -32,7 +32,7 @@ const verifyUserEmailController = async (req, res) => {
     }
 }
 
-const sendVerificationOTPEmail = async (email) => {
+export const sendVerificationOTPEmail = async (email) => {
     try {
         if (!email) throw Error("Empty email not allowed")
         const exsistingUser = await Person.findOne({ email })
@@ -52,4 +52,3 @@ const sendVerificationOTPEmail = async (email) => {
     }
 }
 
-module.exports = { verifyUserEmailController, sendVerificationOTPEmail }

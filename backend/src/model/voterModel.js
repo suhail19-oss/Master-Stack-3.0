@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose";
 
 const voterSchema = new mongoose.Schema({
     voter: {
@@ -15,4 +15,4 @@ const voterSchema = new mongoose.Schema({
 })
 
 const Voter = mongoose.model("Voter", voterSchema)
-module.exports = Voter
+export default Voter

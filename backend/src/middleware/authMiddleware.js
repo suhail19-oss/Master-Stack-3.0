@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 dotenv.config()
+import Person from "../model/personModel.js"
 
 export const userAuth = async function (req, res, next) {
     const token = req.header("Authorization").replace("Bearer ", "")
@@ -21,7 +22,11 @@ export const userAuth = async function (req, res, next) {
 }
 
 export const isAdmin = async function (req, res, next) {
-    if (req.user.isAdmin) {
+    console.log(req.user);
+    const user = await Person.findById(req.user.id)
+    
+    
+    if (user.isAdmin) {
         next()
     } else {
         return res

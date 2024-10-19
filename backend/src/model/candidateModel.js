@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose";
 
 const candidateSchema = new mongoose.Schema({
     partyName: { type: String, required: true },
@@ -8,8 +8,9 @@ const candidateSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Person",
         required: true,
+        unique: true,
     },
 })
 
 const Candidate = mongoose.model("Candidate", candidateSchema)
-module.exports = Candidate
+export default Candidate

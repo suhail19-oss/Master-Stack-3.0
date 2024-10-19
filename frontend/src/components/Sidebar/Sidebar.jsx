@@ -24,13 +24,13 @@ const Sidebar = () => {
     console.log("Logout Clicked");
   };
   const navItems = [
-    {
-      text: "Candidate Details",
-      icon: <Info />,
-      path: "/home/candidateDetails",
-    },
-    { text: "Add Candidate", icon: <Add />, path: "/home/addCandidate" },
-    { text: "Change Phase", icon: <SwapHoriz />, path: "/home/changePhase" },
+    // {
+    //   text: "Candidate Details",
+    //   icon: <Info />,
+    //   path: "/home/candidateDetails",
+    // },
+    // { text: "Add Candidate", icon: <Add />, path: "/home/addCandidate" },
+    // { text: "Change Phase", icon: <SwapHoriz />, path: "/home/changePhase" },
     { text: "User Manual", icon: <Info />, path: "/home/userManual" },
     {
       text: "Voter Registration",
@@ -69,7 +69,7 @@ const Sidebar = () => {
               marginLeft: "1px",
             }}
           >
-            Admin
+            User
           </Typography>
         </Box>
       </ListItem>
